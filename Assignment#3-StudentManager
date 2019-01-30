@@ -1,0 +1,92 @@
+import java.util.*;
+public class StudentManager {
+    public static void main(String[] args){
+        boolean isValid = false;
+        String studentName;
+        int studentScore;
+        
+        ArrayList<Student> list = new ArrayList<>();
+        Scanner input = new Scanner(System.in);
+
+        do {
+            switch (Options()) {
+                case 1:
+                    try {
+                        System.out.println("Please enter the student's name: ");
+                        studentName = input.next();
+                        System.out.println("Please enter a grade for " + studentName + ":");
+                        studentScore = input.nextInt();
+                        Student a = new Student(studentName, studentScore);
+                        list.add(a);
+                    } catch (InputMismatchException ime) {
+                        System.out.println("Invalid input, please enter a number for grade.\n");
+                    } finally {
+                        input.nextLine();
+                        break;
+                    }
+
+                case 2:
+                    try {
+                        System.out.println("What student would you like to enter a grade for?");
+                        for (int i = 0; i < list.size(); i++) {
+                            System.out.println((i + 1) + ")" + list.get(i));
+                        }
+                        int secondInput = input.nextInt();
+                        System.out.println("Please enter a grade for " + list.get(secondInput - 1).getName() + ":");
+                        studentScore = input.nextInt();
+                        list.get(secondInput - 1).setScore(studentScore);
+                    } catch (InputMismatchException ime) {
+                        System.out.println("Invalid input, try again.\n");
+                    } catch (IndexOutOfBoundsException obe) {
+                        System.out.println("Invalid input, try again.\n");
+                    } finally {
+                        input.nextLine();
+                        break;
+                    }
+                    
+                case 3:
+                    isValid = true;
+                    System.out.println("Thank you, Goodbye!");
+            }
+        }while (!isValid);
+    }//End of Main Method
+
+    public static int Options(){
+        Scanner input = new Scanner(System.in);
+        int options = 0;
+        try{
+            System.out.println("Main Menu\n\nSelect one of the following options\n1. Add a Student\n2. Edit student grades\n3. Exit");
+            options = input.nextInt();
+        }catch (InputMismatchException ime) {
+            System.out.println("Please choose the options from 1, 2, 3.\n");
+        }
+        return options;
+    }
+        
+    public class Student {
+        private String name;
+        private int score;
+
+        Student(String name, int score){
+            this.name = name;
+            this.score = score;
+        }
+        //setter methods
+        void setName(String Name) {
+           this.name = Name;
+        }
+        void setScore(int Score) {
+           this.score = Score;
+        }
+        //getter methods
+        public String getName() {
+           return name;
+        }
+        public int getScore() {
+           return score;
+        }
+        public String toString() {
+           return name + " - " + score;
+        }
+    }
+}
