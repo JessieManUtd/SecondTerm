@@ -1,6 +1,3 @@
-//Name: Wanhui Zhang(Jessie);
-//Student ID: 300293696;
-
 public class Student {
     private String name;
     private int score;
